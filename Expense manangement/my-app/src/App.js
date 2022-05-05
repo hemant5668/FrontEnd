@@ -1,38 +1,48 @@
 import Expenses from "./components/Expenses/Expenses";
 import NewExpenses from "./components/NewExpenses/NewExpenses";
+import { useState } from "react";
+
+const Initial_Expense = [
+  {
+    id: "e1",
+    title: "Car Insurance",
+    amount: 450,
+    date:new Date(2022, 7, 14),
+  },
+  {
+    id: "e2",
+    title: "Bike Insurance",
+    amount: 1000,
+    date: new Date(2022, 2, 28),
+  },
+  {
+    id: "e3",
+    title: "Luxuary Car Insurance",
+    amount: 1500,
+    date: new Date(2023, 5, 12)
+  }
+];
 
 function App() {
-  const expenses = [
-    {
-      id: "e1",
-      title: "Car Insurance",
-      amount: "Rs 450",
-      date: new Date(),
-    },
-    {
-      id: "e2",
-      title: "Bike Insurance",
-      amount: "Rs 1000",
-      date: new Date(),
-    },
-    {
-      id: "e3",
-      title: "Luxuary Car Insurance",
-      amount: "Rs 1500",
-      date: new Date(),
-    },
-  ];
+  
+ 
+  const [prevExpense, setprevExpense] = useState(Initial_Expense)
+  
+  const addexpensehandler=(expense)=>{
+    // console.log("app")
+    // console.log(expense)
+    
+    setprevExpense((prevExpense)=>{
+      return [expense,...prevExpense];
+    });
 
-const addexpensehandler=(expense)=>{
-  console.log("app")
-  console.log(expense)
 }
 
   return (
     <div className="App">
       <h2>Let's get Started</h2>
       <NewExpenses addexpense={addexpensehandler}/>
-      <Expenses items={expenses}/>
+      <Expenses items={prevExpense}/>
     </div>
   );
 }
